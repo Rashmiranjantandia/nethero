@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { @apply box-border; }
+  html { @apply scroll-smooth; }
+  body {
+    @apply bg-nethero-bg text-nethero-white font-sans antialiased overflow-x-hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { @apply bg-nethero-bg; }
+  ::-webkit-scrollbar-thumb { @apply bg-nethero-grayDark rounded-pill; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-nethero-gray; }
+}
+
+@layer components {
+  .row-scroll {
+    @apply flex gap-2 overflow-x-scroll scrollbar-hide scroll-smooth snap-x;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .gradient-bottom {
+    background: linear-gradient(180deg, transparent 0%, rgba(20,20,20,0.6) 50%, #141414 100%);
+  }
+  .gradient-left {
+    background: linear-gradient(90deg, #141414 0%, rgba(20,20,20,0.6) 50%, transparent 100%);
+  }
+}
+
+@layer utilities {
+  .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.75); }
+  .will-change-transform { will-change: transform; }
+}
