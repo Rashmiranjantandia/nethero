@@ -40,7 +40,11 @@ export const AuthForm = ({ mode = 'login', onSuccess }) => {
       if (error) {
         toast.error(error.message || 'Something went wrong. Please try again.');
       } else {
-        toast.success(isSignup ? 'Account created! Check your email.' : 'Welcome back!');
+        if (isSignup) {
+          toast.success('Account created! Welcome to NetHero.');
+        } else {
+          toast.success('Welcome back!');
+        }
         onSuccess?.();
       }
     } catch (err) {
