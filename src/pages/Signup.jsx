@@ -6,18 +6,18 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSuccess = () => {
-    // After signup, user needs to verify email before login
-    navigate(ROUTES.LOGIN);
+    // Email confirmation is disabled — user is auto-logged-in after signup
+    navigate(ROUTES.PROFILES);
   };
 
   return (
     <div className="min-h-screen bg-nethero-black flex flex-col">
-      {/* Background image overlay */}
+      {/* Background gradient */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-40 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "url('https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e3-f4c3e5ef6928/webp/IN-en-20240226-popsignuptwoweeks-perspective_alpha_website_large.webp')",
+          background:
+            'linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a0a0a 100%)',
         }}
         aria-hidden="true"
       />

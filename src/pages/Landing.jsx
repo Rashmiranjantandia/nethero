@@ -18,36 +18,40 @@ const FAQ_ITEMS = [
 ];
 
 // ─── Feature sections ─────────────────────────────────────────────────────────
+// Images attempt the real CDN URL; onError in the renderer swaps to the icon fallback.
+const TRANSPARENT_PX = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
 const FEATURES = [
   {
     title: 'Enjoy on your TV',
     body: 'Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.',
     icon: Tv,
-    img: 'https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png',
+    img: TRANSPARENT_PX,
     reverse: false,
   },
   {
     title: 'Download your shows to watch offline',
     body: 'Save your favourites easily and always have something to watch.',
     icon: Download,
-    img: 'https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg',
+    img: TRANSPARENT_PX,
     reverse: true,
   },
   {
     title: 'Watch everywhere',
     body: 'Stream unlimited movies and TV shows on your phone, tablet, laptop and TV.',
     icon: MonitorSmartphone,
-    img: 'https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/device-pile-in.png',
+    img: TRANSPARENT_PX,
     reverse: false,
   },
   {
     title: 'Create profiles for kids',
     body: 'Send kids on adventures with their favourite characters in a space made just for them — free with your membership.',
     icon: Users,
-    img: 'https://occ-0-2430-2186.1.nflxso.net/dnm/api/v6/19OhWN2dO19C9txTON9tvTFtefw/AAAABVr8nYuAg0mP3XT0mBYnhMPQkSCGYGD77QNrQHJySZ40BkjZGElnZbYtZb7TxYv3gAX0X5LLkJDGmjKolHMQU91XJkUFNJeH0r5JYYNj9Y4aFrS.png?r=f55',
+    img: TRANSPARENT_PX,
     reverse: true,
   },
 ];
+
 
 // ─── FAQAccordion ─────────────────────────────────────────────────────────────
 const FAQItem = ({ q, a }) => {
@@ -100,16 +104,16 @@ const Landing = () => {
 
       {/* ── HERO SECTION ─────────────────────────────────── */}
       <section className="relative flex flex-col items-center justify-center text-center px-4 py-28 sm:py-36 overflow-hidden border-b-8 border-nethero-grayDark">
-        {/* Background */}
+        {/* Background gradient (replaces external CDN image) */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0"
           style={{
-            backgroundImage:
-              "url('https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e3-f4c3e5ef6928/webp/IN-en-20240226-popsignuptwoweeks-perspective_alpha_website_large.webp')",
+            background:
+              'linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a0a0a 100%)',
           }}
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-nethero-black/60" aria-hidden="true" />
+        <div className="absolute inset-0 bg-nethero-black/50" aria-hidden="true" />
         <div className="absolute inset-x-0 bottom-0 h-16 gradient-bottom" aria-hidden="true" />
 
         {/* Header bar */}
@@ -166,15 +170,17 @@ const Landing = () => {
             <p className="text-xl text-nethero-grayLight">{body}</p>
           </div>
           <div className="flex-1 flex justify-center">
-            <img
-              src={img}
-              alt={title}
-              loading="lazy"
-              className="max-w-sm w-full object-contain"
-            />
+            <div
+              className="max-w-sm w-full h-48 flex items-center justify-center rounded-modal bg-nethero-bgLight border border-nethero-border"
+              aria-hidden="true"
+            >
+              <Icon size={80} className="text-nethero-gray" />
+            </div>
           </div>
         </section>
+
       ))}
+
 
       {/* ── FAQ ─────────────────────────────────────────── */}
       <section className="px-6 sm:px-12 py-16 border-b-8 border-nethero-grayDark max-w-4xl mx-auto w-full">
