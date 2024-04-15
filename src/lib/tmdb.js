@@ -1,11 +1,18 @@
 import axios from 'axios';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE = import.meta.env.VITE_TMDB_BASE_URL;
-const IMG = import.meta.env.VITE_TMDB_IMG_URL;
+const BASE    = import.meta.env.VITE_TMDB_BASE_URL;
+const IMG     = import.meta.env.VITE_TMDB_IMG_URL;
+
+if (!API_KEY || !BASE) {
+  console.error(
+    '[NetHero] Missing TMDB env variables. ' +
+    'Set VITE_TMDB_API_KEY and VITE_TMDB_BASE_URL in .env.local'
+  );
+}
 
 const tmdb = axios.create({
-  baseURL: BASE,
+  baseURL: BASE || 'https://api.themoviedb.org/3',
   params: { api_key: API_KEY, language: 'en-US' },
   timeout: 10000,
 });
@@ -24,38 +31,42 @@ tmdb.interceptors.response.use(
 );
 
 // ==== IMAGE HELPERS ====
+const imgBase = (IMG || 'https://image.tmdb.org/t/p').replace(/\/$/, '');
+
 export const img = {
-  poster:    (path, size = 'w500') => path ? `${IMG}/${size}${path}` : '/placeholder-poster.jpg',
-  backdrop:  (path, size = 'original') => path ? `${IMG}/${size}${path}` : '/placeholder-backdrop.jpg',
-  profile:   (path, size = 'w185') => path ? `${IMG}/${size}${path}` : '/placeholder-avatar.jpg',
-  logo:      (path, size = 'w300') => path ? `${IMG}/${size}${path}` : null,
+  poster:   (path, size = 'w500')     => path ? `${imgBase}/${size}${path}` : '/placeholder-poster.jpg',
+  backdrop: (path, size = 'original') => path ? `${imgBase}/${size}${path}` : '/placeholder-backdrop.jpg',
+  profile:  (path, size = 'w185')     => path ? `${imgBase}/${size}${path}` : '/placeholder-avatar.jpg',
+  logo:     (path, size = 'w300')     => path ? `${imgBase}/${size}${path}` : null,
 };
 
 // ==== ENDPOINTS ====
+// IMPORTANT: paths must NOT embed '?' query strings.
+// Pass extra filters via the params argument to fetchTMDB / useFetch.
 export const endpoints = {
   // Browse rows
-  trending:        (type='all', window='week') => `/trending/${type}/${window}`,
-  netflixOriginals:() => `/discover/tv?with_networks=213`,
-  topRated:        (type='movie') => `/${type}/top_rated`,
-  popular:         (type='movie') => `/${type}/popular`,
-  upcoming:        () => `/movie/upcoming`,
-  nowPlaying:      () => `/movie/now_playing`,
-  byGenre:         (type, genreId) => `/discover/${type}?with_genres=${genreId}`,
+  trending:         (type = 'all', window = 'week') => `/trending/${type}/${window}`,
+  netflixOriginals: () => `/discover/tv`,        // params: { with_networks: 213 }
+  topRated:         (type = 'movie') => `/${type}/top_rated`,
+  popular:          (type = 'movie') => `/${type}/popular`,
+  upcoming:         () => `/movie/upcoming`,
+  nowPlaying:       () => `/movie/now_playing`,
+  byGenre:          (type) => `/discover/${type}`, // params: { with_genres: genreId }
 
-  // Details
-  details:         (type, id) => `/${type}/${id}?append_to_response=videos,credits,similar,recommendations,images`,
-  videos:          (type, id) => `/${type}/${id}/videos`,
-  credits:         (type, id) => `/${type}/${id}/credits`,
-  similar:         (type, id) => `/${type}/${id}/similar`,
+  // Details — append_to_response is passed as a param, not in the path
+  details:  (type, id) => `/${type}/${id}`,
+  videos:   (type, id) => `/${type}/${id}/videos`,
+  credits:  (type, id) => `/${type}/${id}/credits`,
+  similar:  (type, id) => `/${type}/${id}/similar`,
 
   // TV-specific
-  season:          (tvId, seasonNum) => `/tv/${tvId}/season/${seasonNum}`,
+  season: (tvId, seasonNum) => `/tv/${tvId}/season/${seasonNum}`,
 
-  // Search
-  searchMulti:     (q) => `/search/multi?query=${encodeURIComponent(q)}`,
+  // Search — query string is a param, not embedded in path
+  searchMulti: () => `/search/multi`,            // params: { query: q }
 
   // Genres
-  genres:          (type='movie') => `/genre/${type}/list`,
+  genres: (type = 'movie') => `/genre/${type}/list`,
 };
 
 // ==== FETCH HELPERS ====
@@ -64,32 +75,33 @@ export const fetchTMDB = async (path, params = {}) => {
     const { data } = await tmdb.get(path, { params });
     return { data, error: null };
   } catch (err) {
-    console.error('TMDB error:', path, err.message);
+    console.error('[TMDB] error:', path, err.message);
     return { data: null, error: err.message };
   }
 };
 
-// ==== ROW PRESETS (ready to consume in Browse page) ====
+// ==== ROW PRESETS ====
+// Each entry carries a `params` object for genre/network filters.
 export const ROW_PRESETS = [
-  { id: 'trending',  title: 'Trending Now',           path: endpoints.trending('all','week') },
-  { id: 'originals', title: 'NetHero Originals',       path: endpoints.netflixOriginals() },
-  { id: 'top-movies',title: 'Top Rated Movies',        path: endpoints.topRated('movie') },
-  { id: 'top-tv',    title: 'Top Rated TV Shows',      path: endpoints.topRated('tv') },
-  { id: 'action',    title: 'Action Movies',           path: endpoints.byGenre('movie', 28) },
-  { id: 'comedy',    title: 'Comedy Movies',           path: endpoints.byGenre('movie', 35) },
-  { id: 'horror',    title: 'Horror Movies',           path: endpoints.byGenre('movie', 27) },
-  { id: 'romance',   title: 'Romance Movies',          path: endpoints.byGenre('movie', 10749) },
-  { id: 'docs',      title: 'Documentaries',           path: endpoints.byGenre('movie', 99) },
-  { id: 'sci-fi',    title: 'Sci-Fi Adventures',       path: endpoints.byGenre('movie', 878) },
+  { id: 'trending',   title: 'Trending Now',       path: endpoints.trending('all', 'week'),  params: {} },
+  { id: 'originals',  title: 'NetHero Originals',  path: endpoints.netflixOriginals(),        params: { with_networks: 213 } },
+  { id: 'top-movies', title: 'Top Rated Movies',   path: endpoints.topRated('movie'),         params: {} },
+  { id: 'top-tv',     title: 'Top Rated TV Shows', path: endpoints.topRated('tv'),            params: {} },
+  { id: 'action',     title: 'Action Movies',      path: endpoints.byGenre('movie'),          params: { with_genres: 28 } },
+  { id: 'comedy',     title: 'Comedy Movies',      path: endpoints.byGenre('movie'),          params: { with_genres: 35 } },
+  { id: 'horror',     title: 'Horror Movies',      path: endpoints.byGenre('movie'),          params: { with_genres: 27 } },
+  { id: 'romance',    title: 'Romance Movies',     path: endpoints.byGenre('movie'),          params: { with_genres: 10749 } },
+  { id: 'docs',       title: 'Documentaries',      path: endpoints.byGenre('movie'),          params: { with_genres: 99 } },
+  { id: 'sci-fi',     title: 'Sci-Fi Adventures',  path: endpoints.byGenre('movie'),          params: { with_genres: 878 } },
 ];
 
 // ==== UTILITIES ====
 export const findTrailerKey = (videos) => {
   if (!videos?.results?.length) return null;
-  const trailer = videos.results.find(v =>
-    v.type === 'Trailer' && v.site === 'YouTube' && v.official
-  ) || videos.results.find(v => v.type === 'Trailer' && v.site === 'YouTube')
-    || videos.results.find(v => v.site === 'YouTube');
+  const trailer =
+    videos.results.find(v => v.type === 'Trailer' && v.site === 'YouTube' && v.official) ||
+    videos.results.find(v => v.type === 'Trailer' && v.site === 'YouTube') ||
+    videos.results.find(v => v.site === 'YouTube');
   return trailer?.key || null;
 };
 
@@ -100,4 +112,4 @@ export const formatRuntime = (mins) => {
   return h ? `${h}h ${m}m` : `${m}m`;
 };
 
-export const formatYear = (date) => date ? new Date(date).getFullYear() : '';
+export const formatYear = (date) => (date ? new Date(date).getFullYear() : '');
