@@ -9,15 +9,17 @@ const dropdownVariant = {
   exit:    { opacity: 0, y: -8, transition: { duration: 0.15 } },
 };
 
-export const ProfileDropdown = ({ isOpen, onClose, profiles = [], activeProfile, onSelectProfile, onManage, onSignOut }) => {
+export const ProfileDropdown = ({ isOpen, onToggle, onClose, profiles = [], activeProfile, onSelectProfile, onManage, onSignOut }) => {
   const ref = useRef(null);
-  useOnClickOutside(ref, onClose);
+  // Only CLOSE on outside click — never toggle. This prevents row arrows/modal
+  // clicks from accidentally re-opening the dropdown via the toggle callback.
+  useOnClickOutside(ref, () => { if (isOpen) onClose?.(); });
 
   return (
     <div className="relative" ref={ref}>
       {/* Avatar trigger */}
       <button
-        onClick={onClose}
+        onClick={(e) => { e.stopPropagation(); onToggle?.(); }}
         aria-label="Profile menu"
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -61,7 +63,7 @@ export const ProfileDropdown = ({ isOpen, onClose, profiles = [], activeProfile,
                   <button
                     key={profile.id}
                     role="menuitem"
-                    onClick={() => { onSelectProfile?.(profile); onClose(); }}
+                    onClick={() => { onSelectProfile?.(profile); onClose?.(); }}
                     className="w-full flex items-center gap-3 px-4 py-2 text-sm text-nethero-white hover:bg-nethero-bgHover transition-colors text-left"
                   >
                     <div className="w-7 h-7 rounded-card overflow-hidden bg-nethero-bgHover flex-shrink-0">
@@ -82,9 +84,9 @@ export const ProfileDropdown = ({ isOpen, onClose, profiles = [], activeProfile,
             {/* Actions */}
             <div className="py-2">
               {[
-                { label: 'Manage Profiles', action: () => { onManage?.(); onClose(); } },
-                { label: 'Account',          action: onClose },
-                { label: 'Help',             action: onClose },
+                { label: 'Manage Profiles', action: () => { onManage?.(); onClose?.(); } },
+                { label: 'Account',          action: () => onClose?.() },
+                { label: 'Help',             action: () => onClose?.() },
               ].map(({ label, action }) => (
                 <button
                   key={label}
@@ -100,7 +102,7 @@ export const ProfileDropdown = ({ isOpen, onClose, profiles = [], activeProfile,
             <div className="border-t border-nethero-border py-2">
               <button
                 role="menuitem"
-                onClick={() => { onSignOut?.(); onClose(); }}
+                onClick={() => { onSignOut?.(); onClose?.(); }}
                 className="w-full text-left px-4 py-2 text-sm text-nethero-grayLight hover:text-nethero-white hover:bg-nethero-bgHover transition-colors"
               >
                 Sign out of NetHero

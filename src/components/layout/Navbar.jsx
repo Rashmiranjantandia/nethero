@@ -103,7 +103,8 @@ export const Navbar = ({ profiles = [], activeProfile, onSelectProfile, onManage
             {/* Profile dropdown */}
             <ProfileDropdown
               isOpen={profileOpen}
-              onClose={() => setProfileOpen((v) => !v)}
+              onToggle={() => setProfileOpen((v) => !v)}
+              onClose={() => setProfileOpen(false)}
               profiles={profiles}
               activeProfile={activeProfile}
               onSelectProfile={onSelectProfile}
