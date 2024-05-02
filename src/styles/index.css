@@ -30,6 +30,9 @@
   .gradient-left {
     background: linear-gradient(90deg, #141414 0%, rgba(20,20,20,0.6) 50%, transparent 100%);
   }
+  .gradient-right {
+    background: linear-gradient(270deg, #141414 0%, rgba(20,20,20,0.6) 50%, transparent 100%);
+  }
 }
 
 @layer utilities {
