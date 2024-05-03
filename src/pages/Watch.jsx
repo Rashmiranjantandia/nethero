@@ -79,6 +79,7 @@ const Watch = () => {
       ? d.runtime * 60          // movie: runtime is in minutes → convert to seconds
       : 0;                       // TV: duration unknown without episode data
 
+    // payload keys match exact Supabase column names — verified against schema
     const payload = {
       profile_id:       activeProfile.id,
       tmdb_id:          Number(id),
