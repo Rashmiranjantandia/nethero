@@ -63,6 +63,7 @@ const Watch = () => {
   useEffect(() => { detailsRef.current = details; }, [details]);
 
   const handleProgress = useCallback(async ({ played, playedSeconds }) => {
+    // watched_at not included — Supabase auto-populates created_at on each insert
     if (!activeProfile?.id || !id || !type) return;
 
     const now = Date.now();
