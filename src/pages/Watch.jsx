@@ -93,6 +93,7 @@ const Watch = () => {
     };
 
     // Upsert so re-watching updates the SAME row instead of duplicating
+    // upsert on composite key — re-watching updates the existing row rather than inserting duplicate
     const { error } = await supabase
       .from('watch_history')
       .upsert([payload], {

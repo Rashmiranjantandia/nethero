@@ -34,9 +34,9 @@ tmdb.interceptors.response.use(
 const imgBase = (IMG || 'https://image.tmdb.org/t/p').replace(/\/$/, '');
 
 export const img = {
-  poster:   (path, size = 'w500')     => path ? `${imgBase}/${size}${path}` : '/placeholder-poster.jpg',
-  backdrop: (path, size = 'original') => path ? `${imgBase}/${size}${path}` : '/placeholder-backdrop.jpg',
-  profile:  (path, size = 'w185')     => path ? `${imgBase}/${size}${path}` : '/placeholder-avatar.jpg',
+  poster:   (path, size = 'w500')     => path ? `${imgBase}/${size}${path}` : null,
+  backdrop: (path, size = 'original') => path ? `${imgBase}/${size}${path}` : null,
+  profile:  (path, size = 'w185')     => path ? `${imgBase}/${size}${path}` : null,
   logo:     (path, size = 'w300')     => path ? `${imgBase}/${size}${path}` : null,
 };
 
