@@ -78,6 +78,7 @@ const Watch = () => {
     const totalDuration = d?.runtime
       ? d.runtime * 60          // movie: runtime is in minutes → convert to seconds
       : 0;                       // TV: duration unknown without episode data
+    // duration_seconds null for TV is safer than 0 — avoids misleading progress percentage
 
     // payload keys match exact Supabase column names — verified against schema
     const payload = {
