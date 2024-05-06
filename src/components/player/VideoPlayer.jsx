@@ -137,6 +137,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
   // The interval here only drives the callback — no direct Supabase calls inside player.
   useEffect(() => {
     progressTimerRef.current = setInterval(() => {
+      // interval fires callback only — Supabase writes are handled upstream in Watch.jsx
       if (playingRef.current && playedRef.current > 0 && onProgress) {
         onProgress({
           played:        playedRef.current,
