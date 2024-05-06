@@ -193,6 +193,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
   //   Second tap when controls are visible → TOGGLE play/pause
   // This prevents the frustrating "I tapped to see controls but it paused" issue.
   // Desktop mousemove already keeps controls visible so this mainly matters on touch.
+  // First tap reveals controls; second tap (when controls visible) toggles play/pause
   const handleContainerClick = useCallback(() => {
     if (!controlsVisRef.current) {
       // Controls are hidden — first tap just reveals them
