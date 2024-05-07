@@ -252,6 +252,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
       />
 
       {/* ── Gradient overlays ──────────────────────────────────────────────── */}
+      {/* PlayerOverlay isolates gradient layers — keeps player shell JSX focused on controls */}
       <PlayerOverlay visible={controlsVis} />
 
       {/* ── Top bar: back button + title ───────────────────────────────────── */}
