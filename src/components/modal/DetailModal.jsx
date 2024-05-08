@@ -111,6 +111,7 @@ const DetailModal = () => {
   // Guard: never render the modal shell if we have no target to load.
   // This prevents the transparent empty overlay on mobile when the store
   // has isOpen=true but mediaId is null/undefined (stale state or fast tap).
+  // Fast tap can set isOpen=true with mediaId=null — guard prevents transparent empty overlay
   if (!isOpen || !mediaId) return null;
 
   const title     = details?.title || details?.name || '';
