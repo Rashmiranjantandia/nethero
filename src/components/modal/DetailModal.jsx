@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import ReactPlayer from 'react-player/youtube';
-import { X, Play, Plus, Check, ThumbsUp } from 'lucide-react';
+import { X, Play, Plus, Check, ThumbsUp, Volume2, VolumeX } from 'lucide-react';
 import { useModalStore } from '../../store/useModalStore';
 import { useFetch } from '../../hooks/useFetch';
 import { useMyList } from '../../hooks/useMyList';
@@ -108,7 +108,10 @@ const DetailModal = () => {
     }
   }, [mediaId, isOpen]);
 
-  if (!isOpen) return null;
+  // Guard: never render the modal shell if we have no target to load.
+  // This prevents the transparent empty overlay on mobile when the store
+  // has isOpen=true but mediaId is null/undefined (stale state or fast tap).
+  if (!isOpen || !mediaId) return null;
 
   const title     = details?.title || details?.name || '';
   const year      = formatYear(details?.release_date || details?.first_air_date);
@@ -173,14 +176,17 @@ const DetailModal = () => {
             aria-hidden="true"
           />
 
-          {/* ── Modal panel — clicking the dark surround closes the modal ── */}
+          {/* ── Scroll container — wraps modal panel, handles viewport overflow ── */}
+          {/*                                                                         */}
+          {/* BUG #3 FIX: Using items-start (not items-center) + overflow-y-auto      */}
+          {/* means the panel starts near the top and the user scrolls DOWN inside   */}
+          {/* it, not the container. On mobile, items-center with a tall panel pushed */}
+          {/* the top of the panel off-screen. pt-16/pb-8 gives safe breathing room.  */}
           <div
-            className="fixed inset-0 z-modal flex items-start justify-center overflow-y-auto py-8 px-0 sm:px-4"
-            role="dialog"
-            aria-modal="true"
-            aria-label={title || 'Movie details'}
+            className="fixed inset-0 z-modal overflow-y-auto"
             onClick={closeModal}
           >
+            <div className="flex min-h-full items-start justify-center pt-16 pb-8 px-4 sm:px-6">
             <motion.div
               key="modal-panel"
               ref={scrollRef}
@@ -195,6 +201,9 @@ const DetailModal = () => {
                 shadow-modal
                 will-change-transform
               "
+              role="dialog"
+              aria-modal="true"
+              aria-label={title || 'Movie details'}
               onClick={(e) => e.stopPropagation()}
             >
               {/* ── Close button ─────────────────────────────────────── */}
@@ -216,13 +225,13 @@ const DetailModal = () => {
 
               {/* ── Header: trailer / backdrop ───────────────────────── */}
               <div className="relative w-full aspect-video bg-nethero-black overflow-hidden">
-                {/* Backdrop image */}
-                {!showTrailer && (
+                {/* Backdrop image — show only when src is available */}
+                {!showTrailer && backdrop && (
                   <img
                     src={backdrop}
                     alt={title}
                     className="w-full h-full object-cover"
-                    onError={(e) => { e.currentTarget.src = '/placeholder-backdrop.jpg'; }}
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   />
                 )}
 
@@ -307,7 +316,7 @@ const DetailModal = () => {
                         aria-label={muted ? 'Unmute' : 'Mute'}
                         className="w-9 h-9 rounded-full border-2 border-nethero-grayLight hover:border-nethero-white flex items-center justify-center bg-nethero-bgHover text-nethero-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                       >
-                        {muted ? '🔇' : '🔊'}
+                      {muted ? <VolumeX size={16} aria-hidden="true" /> : <Volume2 size={16} aria-hidden="true" />}
                       </button>
                     )}
                   </div>
@@ -425,6 +434,7 @@ const DetailModal = () => {
                 </div>
               )}
             </motion.div>
+            </div>
           </div>
         </>
       )}
