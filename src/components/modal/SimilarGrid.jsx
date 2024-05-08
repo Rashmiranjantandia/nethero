@@ -13,13 +13,12 @@ const SimilarCard = ({ item, mediaType }) => {
   const resolvedType = item.media_type || mediaType;
   const title        = item.title || item.name || '';
   const year         = formatYear(item.release_date || item.first_air_date);
-  // img.backdrop/poster always return a non-falsy string (placeholder URL),
-  // so || never falls through. Explicitly check the path first.
+  // img helpers now return null for missing paths — handle null thumb gracefully.
   const thumb = item.backdrop_path
     ? img.backdrop(item.backdrop_path, 'w500')
     : item.poster_path
       ? img.poster(item.poster_path, 'w342')
-      : '/placeholder-backdrop.jpg';
+      : null;
 
 
   return (
@@ -40,7 +39,7 @@ const SimilarCard = ({ item, mediaType }) => {
           alt={title}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform"
-          onError={(e) => { e.currentTarget.src = '/placeholder-backdrop.jpg'; }}
+          onError={(e) => { e.currentTarget.style.display = 'none'; }}
         />
       </div>
 
