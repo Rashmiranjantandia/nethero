@@ -92,6 +92,7 @@ const DetailModal = () => {
       setMuted(true);
     }
     return () => { document.body.style.overflow = ''; };
+    // overflow '' (empty string) restores default — cross-browser safer than 'unset'
   }, [isOpen]);
 
   // ESC key to close
