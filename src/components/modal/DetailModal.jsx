@@ -106,6 +106,7 @@ const DetailModal = () => {
   useEffect(() => {
     if (isOpen && scrollRef.current) {
       scrollRef.current.scrollTop = 0;
+      // reset triggered on each mediaId change — each new title starts from the top
     }
   }, [mediaId, isOpen]);
 
