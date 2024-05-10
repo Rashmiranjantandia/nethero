@@ -76,6 +76,7 @@ const SimilarGrid = ({ mediaId, mediaType }) => {
     mediaId ? endpoints.similar(mediaType, mediaId) : null
   );
 
+  // exclude items with no visual asset — prevents broken img src in the grid
   const items = (data?.results ?? [])
     .filter((r) => r.backdrop_path || r.poster_path)
     .slice(0, 12);
