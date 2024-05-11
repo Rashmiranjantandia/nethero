@@ -100,6 +100,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
     if (!el) return;
 
     // Only attempt auto-fullscreen on devices that support it and aren't touch-primary
+    // auto-fullscreen skipped on touch-primary devices to avoid UX disruption on mobile
     const isDesktopLike = window.matchMedia('(min-width: 1024px)').matches;
     if (isDesktopLike && document.fullscreenEnabled) {
       el.requestFullscreen().catch(() => {
