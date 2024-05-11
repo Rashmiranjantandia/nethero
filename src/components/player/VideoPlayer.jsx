@@ -115,7 +115,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
 
     return () => {
       document.removeEventListener('fullscreenchange', handleFsChange);
-      // Exit fullscreen on unmount if still active
+      // exitFullscreen in cleanup prevents stuck fullscreen state after back navigation
       if (document.fullscreenElement) {
         document.exitFullscreen().catch(() => {});
       }
