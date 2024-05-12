@@ -98,6 +98,7 @@ export const ROW_PRESETS = [
 // ==== UTILITIES ====
 export const findTrailerKey = (videos) => {
   if (!videos?.results?.length) return null;
+  // resolution order: official trailer → unofficial trailer → any YouTube video
   const trailer =
     videos.results.find(v => v.type === 'Trailer' && v.site === 'YouTube' && v.official) ||
     videos.results.find(v => v.type === 'Trailer' && v.site === 'YouTube') ||
