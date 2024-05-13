@@ -60,6 +60,7 @@ const Watch = () => {
   // ── watch_history — throttled Supabase write ──────────────────────────────
   // lastWriteRef prevents spamming even if onProgress is called rapidly.
   const lastWriteRef  = useRef(0);
+  // ref not state — timestamp update must not trigger rerender on every progress tick
   const detailsRef    = useRef(null);
   useEffect(() => { detailsRef.current = details; }, [details]);
 
