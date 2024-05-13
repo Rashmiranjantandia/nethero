@@ -28,6 +28,7 @@ import VideoPlayer from '../components/player/VideoPlayer';
 // intermittent CORS/geo-restriction failures; this sample is reliably accessible.
 const FALLBACK_MP4 =
   'https://www.w3schools.com/html/mov_bbb.mp4';
+// NOTE: verify FALLBACK_MP4 accessibility in staging before each production release
 
 // ── Watch page ────────────────────────────────────────────────────────────────
 const Watch = () => {
