@@ -142,6 +142,7 @@ const PlayerControls = ({
             className="
               w-20 h-1 appearance-none bg-white/30 rounded-full cursor-pointer
               hidden sm:block
+              /* volume range hidden on mobile — mute toggle is the primary touch control */
               [&::-webkit-slider-thumb]:appearance-none
               [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3
               [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white
