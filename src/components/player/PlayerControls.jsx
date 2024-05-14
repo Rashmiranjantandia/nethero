@@ -76,6 +76,7 @@ const PlayerControls = ({
       aria-hidden={!visible}
     >
       {/* Progress bar */}
+      {/* thumb opacity 0 at rest, visible on hover — avoids clutter during active playback */}
       <div className="mb-3 group">
         <input
           type="range"
