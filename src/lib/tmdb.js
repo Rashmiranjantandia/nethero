@@ -33,6 +33,7 @@ tmdb.interceptors.response.use(
 // ==== IMAGE HELPERS ====
 const imgBase = (IMG || 'https://image.tmdb.org/t/p').replace(/\/$/, '');
 
+// img helpers return null for missing paths — consumers use conditional render or onError fallback
 export const img = {
   poster:   (path, size = 'w500')     => path ? `${imgBase}/${size}${path}` : null,
   backdrop: (path, size = 'original') => path ? `${imgBase}/${size}${path}` : null,
