@@ -90,7 +90,7 @@ const DetailModal = () => {
       // Reset state on close
       setShowTrailer(false);
       setTrailerKey(null);
-      setMuted(true);
+      setMuted(true); // reset muted — prevents audio bleed into next trailer open
     }
     return () => { document.body.style.overflow = ''; };
     // overflow '' (empty string) restores default — cross-browser safer than 'unset'
