@@ -70,6 +70,7 @@ const DetailModal = () => {
       setTrailerKey(key ?? null);
       if (key) {
         trailerTimer.current = setTimeout(() => {
+          // mounted ref prevents setShowTrailer call after component unmounts
           if (mounted.current) setShowTrailer(true);
         }, 1000); // 1s delay inside modal
       }
