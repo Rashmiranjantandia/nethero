@@ -251,6 +251,7 @@ const DetailModal = () => {
                       height="100%"
                       style={{ position: 'absolute', top: 0, left: 0 }}
                       config={{
+                        // playerVars must nest under youtube key — flat config is silently ignored
                         playerVars: {
                           autoplay: 1,
                           controls: 0,
