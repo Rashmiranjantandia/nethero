@@ -75,6 +75,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
     if (!el) return;
     el.addEventListener('mousemove', resetHideTimer);
     el.addEventListener('touchstart', resetHideTimer, { passive: true });
+    // both listeners registered once — cleaned up on unmount via return fn
     resetHideTimer(); // start the initial timer
 
     return () => {
