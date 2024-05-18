@@ -271,6 +271,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
           type="button"
           aria-label="Go back"
           onClick={(e) => { e.stopPropagation(); onBack?.(); }}
+          // stopPropagation prevents back tap bubbling to container handleContainerClick
           className="
             pointer-events-auto
             flex items-center justify-center w-10 h-10 rounded-full
