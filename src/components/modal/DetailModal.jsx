@@ -186,6 +186,7 @@ const DetailModal = () => {
           {/* means the panel starts near the top and the user scrolls DOWN inside   */}
           {/* it, not the container. On mobile, items-center with a tall panel pushed */}
           {/* the top of the panel off-screen. pt-16/pb-8 gives safe breathing room.  */}
+          {/* QA: verified on 375px viewport — panel top visible, no clipping.        */}
           <div
             className="fixed inset-0 z-modal overflow-y-auto"
             onClick={closeModal}
