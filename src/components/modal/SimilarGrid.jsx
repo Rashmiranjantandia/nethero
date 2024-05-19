@@ -49,6 +49,7 @@ const SimilarCard = ({ item, mediaType }) => {
           type="button"
           aria-label={`Play ${title}`}
           onClick={(e) => { e.stopPropagation(); navigate(`/watch/${resolvedType}/${item.id}`); }}
+          // stopPropagation: play tap navigates to watch; card tap opens modal — both distinct
           className="w-10 h-10 rounded-full bg-nethero-white/90 flex items-center justify-center hover:bg-nethero-white transition-colors"
         >
           <Play size={18} fill="black" className="text-black" aria-hidden="true" />
