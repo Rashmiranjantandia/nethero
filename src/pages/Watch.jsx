@@ -54,6 +54,7 @@ const Watch = () => {
   // ── Hide browser scroll bar while on watch page ───────────────────────────
   useEffect(() => {
     document.body.style.overflow = 'hidden';
+    // cleanup fires on unmount, route change, and browser back — overflow always restored
     return () => { document.body.style.overflow = ''; };
   }, []);
 
