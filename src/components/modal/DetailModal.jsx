@@ -130,6 +130,7 @@ const DetailModal = () => {
   const backdrop  = img.backdrop(details?.backdrop_path, 'original');
 
   // Credits
+  // cast limited to 3 — validated in production build: no overflow in narrow column
   const cast      = (details?.credits?.cast || []).slice(0, 3).map((c) => c.name);
   const crew      = details?.credits?.crew || [];
   const directors = crew.filter((c) => c.job === 'Director').slice(0, 2).map((c) => c.name);

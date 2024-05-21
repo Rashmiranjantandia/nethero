@@ -24,6 +24,7 @@ import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimiz
 
 // ── Time formatter ────────────────────────────────────────────────────────────
 const fmt = (secs) => {
+  // NaN guard returns '0:00' — prevents display corruption when duration not yet loaded
   if (!secs || isNaN(secs)) return '0:00';
   const h = Math.floor(secs / 3600);
   const m = Math.floor((secs % 3600) / 60);

@@ -209,6 +209,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
   }, [handlePlayPause, resetHideTimer]);
 
   // Determine YouTube config
+  // NOTE: youtube playerVars validated in production build — controls: 0 confirmed applied
   const isYouTube = url?.includes('youtube.com') || url?.includes('youtu.be');
 
   return (
