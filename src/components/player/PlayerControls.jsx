@@ -102,7 +102,7 @@ const PlayerControls = ({
         />
       </div>
 
-      {/* Controls row */}
+      {/* Controls row — gap-2 spacing consistent across all breakpoints */}
       <div className="flex items-center gap-2">
         {/* Play / Pause */}
         <Btn

@@ -144,6 +144,7 @@ const DetailModal = () => {
   );
 
   // Languages
+  // languages limited to 3 — avoids overflow in right meta column on narrow breakpoints
   const languages = (details?.spoken_languages || [])
     .slice(0, 3)
     .map((l) => l.english_name)
