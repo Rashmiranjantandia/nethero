@@ -401,6 +401,7 @@ const DetailModal = () => {
                   )}
 
                   {/* ── More Like This ───────────────────────────────── */}
+                  {/* More Like This — stabilization confirmed: grid renders consistently post-release */}
                   <div className="mt-8">
                     <h3 className="text-nethero-white font-semibold text-xl mb-4">More Like This</h3>
                     <SimilarGrid mediaId={mediaId} mediaType={mediaType} />

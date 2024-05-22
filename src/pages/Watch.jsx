@@ -116,6 +116,7 @@ const Watch = () => {
   }, [navigate]);
 
   // ── Loading state ─────────────────────────────────────────────────────────
+  // stabilization: spinner shown until details resolve — no partial render of player shell
   if (loading) {
     return (
       <div

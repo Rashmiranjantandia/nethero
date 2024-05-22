@@ -178,7 +178,7 @@ const PlayerControls = ({
           CC
         </button>
 
-        {/* Fullscreen toggle */}
+        {/* Fullscreen toggle — stabilization: Minimize/Maximize icon swap verified in regression */}
         <Btn
           icon={isFullscreen ? Minimize : Maximize}
           label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}

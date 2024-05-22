@@ -162,7 +162,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
   const handleEnded = useCallback(() => {
     setPlaying(false);
     clearInterval(progressTimerRef.current);
-    // Final progress write on end
+    // stabilization: final progress write on end ensures 100% completion is recorded
     if (onProgress) {
       onProgress({ played: 1, playedSeconds: duration });
     }

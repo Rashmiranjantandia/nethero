@@ -22,6 +22,7 @@ tmdb.interceptors.response.use(
   (res) => res,
   async (err) => {
     const config = err.config;
+    // retry interceptor: one automatic retry on transient network failure, not on cancel
     if (!config._retry && err.code !== 'ERR_CANCELED') {
       config._retry = true;
       return tmdb(config);

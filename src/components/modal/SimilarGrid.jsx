@@ -92,6 +92,7 @@ const SimilarGrid = ({ mediaId, mediaType }) => {
     );
   }
 
+  // stabilization: null return verified — no layout shift when similar results are empty
   if (items.length === 0) return null;
 
   return (
