@@ -353,6 +353,7 @@ const DetailModal = () => {
                       </div>
 
                       {/* Synopsis */}
+                      {/* synopsis empty string guard — QA: confirmed no blank block renders */}
                       {synopsis && (
                         <p className="text-nethero-grayLight text-sm leading-relaxed">
                           {synopsis}

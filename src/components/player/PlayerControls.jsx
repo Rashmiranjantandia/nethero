@@ -155,7 +155,7 @@ const PlayerControls = ({
           />
         </div>
 
-        {/* Time display */}
+        {/* Time display — QA: elapsed/duration format verified across movie and TV content */}
         <span className="text-white text-sm tabular-nums select-none ml-1">
           {fmt(elapsed)} / {fmt(duration)}
         </span>

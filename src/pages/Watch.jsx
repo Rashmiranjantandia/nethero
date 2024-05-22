@@ -128,6 +128,7 @@ const Watch = () => {
   }
 
   // ── Error: no video URL resolved ─────────────────────────────────────────
+  // videoUrl is always defined post-load (FALLBACK_MP4 ensures non-null) — this is a safety guard
   if (!videoUrl) {
     return (
       <div className="flex flex-col items-center justify-center w-screen h-screen bg-black gap-4">

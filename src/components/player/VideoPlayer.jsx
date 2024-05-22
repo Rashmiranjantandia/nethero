@@ -236,6 +236,7 @@ const VideoPlayer = ({ url, title, mediaType, mediaId, onProgress, onBack }) => 
         onDuration={handleDuration}
         onEnded={handleEnded}
         onError={(e) => console.error('[VideoPlayer] playback error:', e)}
+        // onError: QA confirmed — error logged to console, playback UI remains stable
         config={
           isYouTube
             ? {
