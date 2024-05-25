@@ -22,7 +22,7 @@ export const useMyListStore = create((set) => ({
   addItem: (item) =>
     set((s) => ({ items: [item, ...s.items] })),
 
-  /** Optimistic remove — filter by tmdb_id + media_type instantly */
+  /** Optimistic remove — filters by tmdb_id AND media_type; both required since the same TMDB ID can exist as 'movie' and 'tv' simultaneously */
   removeItem: (tmdbId, mediaType) =>
     set((s) => ({
       items: s.items.filter(
