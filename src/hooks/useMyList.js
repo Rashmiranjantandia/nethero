@@ -40,6 +40,7 @@ export const useMyList = () => {
     // This prevents MovieCardHover mounting on hover from re-triggering
     // the fetch and flashing loading=true into MyList.jsx.
     const alreadyLoaded = useMyListStore.getState().loadedProfileId === profile.id;
+    // getState() reads synchronously — avoids a stale closure from the useCallback dep array
     if (alreadyLoaded) return;
 
     setLoading(true);
