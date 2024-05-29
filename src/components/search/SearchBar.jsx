@@ -74,7 +74,7 @@ const SearchBar = () => {
     setInputValue('');
   }, []);
 
-  // ── ESC key ────────────────────────────────────────────────────────────────
+  // ── ESC key — document-level listener fires even when focus is inside the input ─
   useEffect(() => {
     const handler = (e) => {
       if (e.key === 'Escape' && isExpanded) collapse();
