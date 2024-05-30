@@ -100,7 +100,7 @@ const SearchResults = ({ results = [], loading }) => {
         <motion.div
           key={`${item.id}-${item.media_type}`}
           variants={cardVariants}
-          // BUG #3: Search grid cards get a lightweight hover via CSS only.
+          // CSS-only hover: disableHover suppresses MovieCardHover so brightness+scale give feedback without z-index disruption.
           // The floating MovieCardHover overlay is suppressed via disableHover.
           // group/brightness keeps interaction feedback without z-index chaos.
           className="h-full transition-[filter,transform] duration-200 hover:brightness-125 hover:scale-[1.03]"
