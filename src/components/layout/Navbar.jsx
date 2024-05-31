@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, Search, Bell } from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
 import { useScroll } from '../../hooks/useScroll';
 import { useUIStore } from '../../store/useUIStore';
 import { ROUTES } from '../../constants/routes';
 import MobileMenu from './MobileMenu';
 import ProfileDropdown from './ProfileDropdown';
+import SearchBar from '../search/SearchBar';
 
 const NAV_LINKS = [
   { label: 'Home',          to: ROUTES.BROWSE },
@@ -83,14 +84,8 @@ export const Navbar = ({ profiles = [], activeProfile, onSelectProfile, onManage
 
           {/* ── RIGHT ── */}
           <div className="flex items-center gap-3 lg:gap-4">
-            {/* Search */}
-            <button
-              onClick={() => navigate(ROUTES.SEARCH)}
-              aria-label="Search"
-              className="p-1 text-nethero-grayLight hover:text-nethero-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nethero-white rounded"
-            >
-              <Search size={20} aria-hidden="true" />
-            </button>
+            {/* SearchBar — expands inline, pushes ?q= to /search */}
+            <SearchBar />
 
             {/* Bell (placeholder) */}
             <button
