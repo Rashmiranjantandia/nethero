@@ -87,7 +87,7 @@ export const Navbar = ({ profiles = [], activeProfile, onSelectProfile, onManage
             {/* SearchBar — expands inline, pushes ?q= to /search */}
             <SearchBar />
 
-            {/* Bell (placeholder) */}
+            {/* Bell — notification icon; kept icon-only on mobile to preserve right-section width */}
             <button
               aria-label="Notifications"
               className="p-1 text-nethero-grayLight hover:text-nethero-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nethero-white rounded"
