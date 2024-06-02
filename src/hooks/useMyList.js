@@ -55,7 +55,7 @@ export const useMyList = () => {
   }, [profile?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    // When profile changes, clear stale data then re-fetch
+    // When profile switches, clear stale list before re-fetching to prevent cross-profile data bleed
     const currentLoaded = useMyListStore.getState().loadedProfileId;
     if (profile?.id && currentLoaded !== profile.id) {
       clearForProfile();
