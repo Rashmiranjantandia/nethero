@@ -14,7 +14,7 @@ const PlayerOverlay = ({ visible }) => (
         background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%)',
       }}
     />
-    {/* Bottom gradient — covers controls area */}
+    {/* Bottom gradient — h-40 covers the full PlayerControls bar height across all viewport sizes */}
     <div
       aria-hidden="true"
       className="pointer-events-none absolute inset-x-0 bottom-0 h-40 transition-opacity duration-300"
