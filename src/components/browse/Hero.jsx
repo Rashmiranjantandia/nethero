@@ -48,18 +48,26 @@ const HeroSkeleton = () => (
   </div>
 );
 
-// ── Hero ──────────────────────────────────────────────────────────────────────
-const Hero = () => {
+// ── Hero ───────────────────────────────────────────────────────────────────────
+/**
+ * Hero — Netflix-style billboard.
+ * @param {string} [trendingType='all'] — 'all' | 'movie' | 'tv'
+ *   Controls which TMDB trending endpoint is used.
+ *   Browse passes nothing (defaults to 'all').
+ *   Movies passes 'movie', TVShows passes 'tv'.
+ */
+const Hero = ({ trendingType = 'all' }) => {
   const navigate   = useNavigate();
   const openModal  = useModalStore((s) => s.openModal);
 
-  // Fetch trending to get featured item
+  // Fetch trending filtered by trendingType
   const { data: trendingData, loading: trendingLoading } = useFetch(
-    endpoints.trending('all', 'week')
+    endpoints.trending(trendingType, 'week')
   );
 
   const featured = pickFeatured(trendingData?.results);
-  const mediaType = featured?.media_type ?? 'movie';
+  // When trendingType is 'movie' or 'tv', items may lack media_type field
+  const mediaType = featured?.media_type ?? (trendingType !== 'all' ? trendingType : 'movie');
 
   // Trailer + details state
   const [trailerKey,  setTrailerKey]  = useState(null);
