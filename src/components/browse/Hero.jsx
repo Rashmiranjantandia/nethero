@@ -219,33 +219,33 @@ const Hero = ({ trendingType = 'all' }) => {
         aria-hidden="true"
       />
 
-      {/* ── Left content panel ──────────────────────────────────────────────── */}
-      <div className="absolute inset-0 flex flex-col justify-end pb-20 sm:pb-24 lg:pb-28">
+      {/* ── Left content panel ──────────────────────────────────────── */}
+      <div className="absolute inset-0 flex flex-col justify-end pb-14 sm:pb-24 lg:pb-28">
         <motion.div
-          className="max-w-2xl px-6 sm:px-12 lg:px-16 flex flex-col gap-4"
+          className="max-w-2xl px-4 sm:px-12 lg:px-16 flex flex-col gap-2 sm:gap-4"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
           {/* Year badge */}
           {year && (
-            <span className="text-sm text-nethero-grayLight">{year}</span>
+            <span className="text-xs sm:text-sm text-nethero-grayLight">{year}</span>
           )}
 
-          {/* Title */}
+          {/* Title — smaller on mobile to prevent overflow */}
           <h1
-            className="text-hero font-bold text-shadow text-nethero-white line-clamp-2 leading-none"
+            className="text-2xl sm:text-hero font-bold text-shadow text-nethero-white line-clamp-2 leading-tight"
           >
             {title}
           </h1>
 
-          {/* Synopsis */}
-          <p className="text-lg text-nethero-grayLight text-shadow line-clamp-3 max-w-xl leading-snug">
+          {/* Synopsis — hidden on very small portrait screens where it would overflow */}
+          <p className="hidden sm:block text-lg text-nethero-grayLight text-shadow line-clamp-3 max-w-xl leading-snug">
             {synopsis}
           </p>
 
           {/* Action buttons */}
-          <div className="flex flex-wrap items-center gap-3 mt-1">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-1">
             <Button
               variant="primary"
               size="lg"
