@@ -82,7 +82,13 @@ const Row = ({ title, path, params = {}, mediaType = 'movie', isLarge = false, i
   return (
     <section
       ref={inViewRef}
-      className="relative py-3 group"
+      className={[
+        'relative py-3 group',
+        // Elevate z-index when row is hovered so the card hover overlay
+        // paints above sibling rows below it. z-[2] > sibling rows (auto)
+        // but well below navbar (z-navbar). This is the Netflix stacking pattern.
+        rowHovered ? 'z-[2]' : 'z-[1]',
+      ].join(' ')}
       aria-label={`${title} row`}
       onMouseEnter={() => setRowHovered(true)}
       onMouseLeave={() => setRowHovered(false)}
