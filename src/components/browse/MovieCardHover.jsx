@@ -197,6 +197,7 @@ const MovieCardHover = ({ item, mediaType, isLarge, index, onPlay }) => {
                   rel: 0,
                   showinfo: 0,
                   iv_load_policy: 3,
+                  origin: window.location.origin,
                 },
               }}
             />
