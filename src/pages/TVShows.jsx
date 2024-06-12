@@ -14,6 +14,7 @@ import DetailModal from '../components/modal/DetailModal';
 // ── TV-only row definitions ───────────────────────────────────────────────────
 const TV_ROWS = [
   { id: 'trending-tv',    title: 'Trending TV Shows',   path: endpoints.trending('tv', 'week'),     params: {} },
+  // with_networks: 213 is Netflix's TMDB network ID — required to filter Originals content
   { id: 'originals',      title: 'NetHero Originals',   path: endpoints.netflixOriginals(),          params: { with_networks: 213 }, isLarge: true },
   { id: 'top-rated-tv',   title: 'Top Rated',           path: endpoints.topRated('tv'),              params: {} },
   { id: 'popular-tv',     title: 'Popular',             path: endpoints.popular('tv'),               params: {} },
