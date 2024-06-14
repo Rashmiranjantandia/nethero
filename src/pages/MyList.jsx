@@ -118,7 +118,7 @@ const MyList = () => {
                 variants={cardVariants}
                 // relative → gives MovieCardHover an absolute-positioning ancestor
                 // z-[1] base → [&:hover]:z-[2] elevates above sibling cells on hover
-                // so the floating card isn't clipped by adjacent grid cells
+                // so the floating MovieCardHover panel is never clipped by adjacent grid cells
                 className="relative h-full z-[1] [&:hover]:z-[2]"
               >
                 <MovieCard
