@@ -32,6 +32,7 @@ const Search = () => {
 
   // ── Fetch: search OR trending (no query) ─────────────────────────────────
   // useFetch is stable — path changes only when query changes (after debounce)
+  // Paths are mutually exclusive: search receives null when inactive, trending receives null when query is set
   const { data: searchData, loading: searchLoading } = useFetch(
     query ? endpoints.searchMulti() : null,
     query ? { query } : {},
