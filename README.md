@@ -195,6 +195,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 <div align="center">
 
-Made with ❤️ · Powered by [TMDB](https://www.themoviedb.org) · Hosted on [Netlify](https://netlify.com)
+Made with ❤️ Rashmi Ranjan · Powered by [TMDB](https://www.themoviedb.org) · Hosted on [Netlify](https://netlify.com)
 
 </div>
